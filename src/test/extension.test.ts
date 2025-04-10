@@ -1,3 +1,14 @@
+//=============================================================================
+// FILE: src/extension.test.ts
+// AUTHOR: frnfnts
+// License: MIT license
+//
+// TERMINOLOGY:
+// - land: non-white code block.
+// - shore: edge of land.
+// - sea: white space.
+//=============================================================================
+
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 

@@ -1,3 +1,14 @@
+//=============================================================================
+// FILE: src/extension.ts
+// AUTHOR: frnfnts
+// License: MIT license
+//
+// TERMINOLOGY:
+// - land: non-white code block.
+// - shore: edge of land.
+// - sea: white space.
+//=============================================================================
+
 import * as vscode from "vscode";
 type Direction = -1 | 1;
 
