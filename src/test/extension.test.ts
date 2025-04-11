@@ -209,7 +209,7 @@ suite("EdgeMotion", () => {
       startChar: number,
     ): string => {
       return `${line.slice(0, startChar)}→${line[startChar]}←${line.slice(startChar + 1)}`;
-    }
+    };
 
     for (const testCase of islandTestCases) {
       editor.selection = new vscode.Selection(
