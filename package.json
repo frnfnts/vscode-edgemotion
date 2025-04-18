@@ -2,6 +2,10 @@
   "name": "vscode-edgemotion",
   "publisher": "frnfnts",
   "displayName": "vscode-edgemotion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frnfnts/vscode-edgemotion"
+  },
   "description": "",
   "version": "0.0.1",
   "license": "MIT",
