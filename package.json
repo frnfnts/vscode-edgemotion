@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/frnfnts/vscode-edgemotion"
   },
-  "description": "",
+  "description": "Move the cursor to the next or previous edge of code.",
   "version": "0.0.1",
   "license": "MIT",
   "engines": {
