@@ -47,7 +47,25 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(moveToNextEdge, moveToPreviousEdge);
+  const moveUpIndent = vscode.commands.registerCommand(
+    "vscode-edgemotion.MoveUpIndent",
+    () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        return;
+      }
+      const position = editor.selection.active;
+      const foundIndent = findUpIndent(editor, position.line);
+      if (foundIndent !== null) {
+      const [targetLine, targetVcol] = foundIndent;
+        const newPosition = position.with(targetLine, targetVcol);
+        editor.selection = new vscode.Selection(newPosition, newPosition);
+        editor.revealRange(new vscode.Range(newPosition, newPosition));
+      }
+    }
+  );
+
+  context.subscriptions.push(moveToNextEdge, moveToPreviousEdge, moveUpIndent);
 
 }
 export function deactivate() {}
@@ -151,4 +169,34 @@ export function getCharsAround(line: string, vcol: number): string[] {
     return [];
   }
   return [match[1][vcol - 1] ?? "", match[2], match[3]];
+}
+
+export function getFirstCharPos(
+  text: string,
+): number {
+  return text.search(/\S/); // Find the first non-whitespace character
+}
+
+export function findUpIndent(
+  editor: vscode.TextEditor,
+  startLine: number,
+): number[] | null {
+  const document = editor.document;
+  const startLineText = document.lineAt(startLine).text;
+  const firstCharPos = getFirstCharPos(startLineText);
+  if (firstCharPos <= 0) {
+    return null; // No indentation to move up from
+  }
+
+  for (let line = startLine - 1; line >= 0; line--) {
+    const text = document.lineAt(line).text;
+    const currentFirstCharPos = getFirstCharPos(text);
+    if (currentFirstCharPos < 0) {
+      continue; // Skip empty lines
+    }
+    if (currentFirstCharPos < firstCharPos) {
+      return [line, currentFirstCharPos]; // Found a line with less indentation
+    }
+  }
+  return null; // No line with less indentation found
 }

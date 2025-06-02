@@ -266,4 +266,64 @@ suite("EdgeMotion", () => {
       );
     }
   });
+
+  suite("MoveUpIndent", () => {
+    test("getFirstCharPos", async () => {
+      const testCases = [
+        { text: "hoge", expected: 0 },
+        { text: "  hoge", expected: 2 },
+        { text: "    hoge fuga", expected: 4 },
+        { text: "	tab", expected: 1 },
+        { text: "		tabtab", expected: 2 },
+        { text: "", expected: -1 }, // Empty line
+      ];
+
+      for (const testCase of testCases) {
+        const firstCharPos = edgeMotion.getFirstCharPos(
+          testCase.text
+        );
+        assert.strictEqual(
+          firstCharPos,
+          testCase.expected,
+          `getFirstCharPos did not return the expected position for line ${testCase.text}`
+        );
+      }
+    });
+
+    test("up indent", async () => {
+      const document = await vscode.workspace.openTextDocument({
+        content: content,
+      });
+      const editor = await vscode.window.showTextDocument(document);
+
+      const testCases = [
+        { startLine: 1, endLine: 1, startChar: 0, endChar: 0 },
+        { startLine: 2, endLine: 1, startChar: 2, endChar: 0 },
+        { startLine: 3, endLine: 2, startChar: 4, endChar: 2 },
+      ];
+
+      for (const testCase of testCases) {
+        // Set initial cursor position
+        editor.selection = new vscode.Selection(
+          0,
+          0,
+          testCase.startLine,
+          testCase.startChar
+        );
+        await vscode.commands.executeCommand(
+          "vscode-edgemotion.MoveUpIndent"
+        );
+        assert.strictEqual(
+          editor.selection.active.line,
+          testCase.endLine,
+          "Cursor did not move up indent"
+        );
+        assert.strictEqual(
+          editor.selection.active.character,
+          testCase.endChar,
+          "Cursor did not move up indent"
+        );
+      }
+    });
+  });
 });

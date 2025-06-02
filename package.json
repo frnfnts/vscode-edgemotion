@@ -26,6 +26,10 @@
       {
         "command": "vscode-edgemotion.MoveToPreviousEdge",
         "title": "Move to Previous Edge"
+      },
+      {
+        "command": "vscode-edgemotion.MoveUpIndent",
+        "title": "Move to upper indentation level"
       }
     ]
   },
