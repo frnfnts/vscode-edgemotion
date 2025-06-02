@@ -9,6 +9,9 @@ vscode-edgemotion は haya14busa さんの [vim-edgemotion](https://github.com/h
 
 コードの端に移動するコマンド `vscode-edgemotion.Motion` と `vscode-edgemotion.MotionBackward` を提供します。
 
+新機能としてインデントによる移動もサポートしています。
+- `vscode-edgemotion.MoveUpIndent`: 上のインデントに移動
+
 ## Settings
 
 `ctrl+j`, `ctrl+k` でそれぞれ次のエッジ、前のエッジに移動するには次のように keybindings.json を設定します。
@@ -38,6 +41,9 @@ vscode-edgemotion is a port of [vim-edgemotion](https://github.com/haya14busa/vi
 
 
 Provides commands `vscode-edgemotion.Motion` and `vscode-edgemotion.MotionBackward` to move to the edge of the code.
+
+As a new feature, indent-based navigation is also supported.
+- `vscode-edgemotion.MoveUpIndent`: Move to the upper indentation level
 
 ## Settings
 
